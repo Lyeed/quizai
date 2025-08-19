@@ -19,7 +19,7 @@ export default defineConfig((env) => ({
             background: "#ffffff",
             theme_color: "#0e0e0e",
             developerName: "Lyeed",
-            developerURL: "https://github.com/Lyeed/quizai",
+            developerURL: "https://github.com/Lyeed",
             manifestMaskable: true,
         }),
     ],
