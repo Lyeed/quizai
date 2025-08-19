@@ -15,11 +15,12 @@ import {
 import { Home } from "./Home";
 import { Questions } from "./Questions";
 import { Done } from "./Done";
+import { Loader } from "./Loader";
 
 export const App = (): JSX.Element => {
     const resetTopic = useResetTopic();
 
-    const { questions, done } = useContext(AppContext);
+    const { questions, done, loading } = useContext(AppContext);
 
     return (
         <>
@@ -31,34 +32,43 @@ export const App = (): JSX.Element => {
                     onClick={resetTopic}
                 />
             </Header>
-            {questions.length === 0 ? (
-                <Home />
-            ) : done ? (
-                <Done />
+            {loading ? (
+                <Loader />
             ) : (
-                <Questions />
+                <>
+                    {questions.length === 0 ? (
+                        <Home />
+                    ) : done ? (
+                        <Done />
+                    ) : (
+                        <Questions />
+                    )}
+                    <Footer>
+                        <IllustrationLeft
+                            src={illustration1Path}
+                            width={128}
+                            height={128}
+                        />
+                        <AuthorLink
+                            target="_blank"
+                            href="https://github.com/Lyeed/quizai"
+                        >
+                            GitHub repository
+                        </AuthorLink>
+                        <AuthorLink
+                            target="_blank"
+                            href="https://lyeed.github.io"
+                        >
+                            @Lyeed
+                        </AuthorLink>
+                        <IllustrationRight
+                            src={illustration2Path}
+                            width={128}
+                            height={128}
+                        />
+                    </Footer>
+                </>
             )}
-            <Footer>
-                <IllustrationLeft
-                    src={illustration1Path}
-                    width={128}
-                    height={128}
-                />
-                <AuthorLink
-                    target="_blank"
-                    href="https://github.com/Lyeed/quizai"
-                >
-                    GitHub repository
-                </AuthorLink>
-                <AuthorLink target="_blank" href="https://lyeed.github.io">
-                    @Lyeed
-                </AuthorLink>
-                <IllustrationRight
-                    src={illustration2Path}
-                    width={128}
-                    height={128}
-                />
-            </Footer>
         </>
     );
 };

@@ -3,16 +3,19 @@ import {
     useCallback,
     useMemo,
     type JSX,
-    useContext,
     useState,
     type ChangeEventHandler,
     type MouseEventHandler,
+    useContext,
 } from "react";
+import { useFetchQuestions } from "src/utils/useFetchQuestions";
+import { QuizDifficulty } from "src/@types/app";
 import AppContext from "src/contexts/AppContext";
 import { Main } from "../library";
 import { subjects } from "./Home.constants";
 import {
     Description,
+    DifficultySelect,
     Prompt,
     Subject,
     Subjects,
@@ -21,21 +24,16 @@ import {
 } from "./Home.styled";
 
 export const Home = (): JSX.Element => {
-    const [prompt, setPrompt] = useState("");
+    const { setDifficulty, difficulty } = useContext(AppContext);
 
-    const { setQuestions, setTopic } = useContext(AppContext);
+    const [prompt, setPrompt] = useState("");
 
     const randomSubjects = useMemo(
         () => subjects.sort((a, b) => 0.5 - Math.random()).slice(0, 4),
         []
     );
 
-    const handleClickTag = useCallback<MouseEventHandler<HTMLButtonElement>>(
-        (event) => {
-            const { topic } = event.currentTarget.dataset;
-        },
-        []
-    );
+    const fetchQuestions = useFetchQuestions();
 
     const handlePromptChange = useCallback<
         ChangeEventHandler<HTMLInputElement>
@@ -43,34 +41,32 @@ export const Home = (): JSX.Element => {
         setPrompt(event.currentTarget.value);
     }, []);
 
+    const handleDifficultyChange = useCallback<
+        ChangeEventHandler<HTMLSelectElement>
+    >(
+        (event) => {
+            setDifficulty(event.currentTarget.value as QuizDifficulty);
+        },
+        [setDifficulty]
+    );
+
+    const handleClickTag = useCallback<MouseEventHandler<HTMLButtonElement>>(
+        (event) => {
+            const { topic } = event.currentTarget.dataset;
+
+            if (topic) {
+                void fetchQuestions(topic);
+            }
+        },
+        [fetchQuestions]
+    );
+
     const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
         (event) => {
             event.preventDefault();
-            setTopic("Global");
-            setQuestions([
-                {
-                    question: "Which planet is known as the Red Planet?",
-                    responses: ["Earth", "Mars", "Jupiter", "Venus"],
-                    answer: 1,
-                },
-                {
-                    question: "Who painted the Mona Lisa?",
-                    responses: [
-                        "Vincent van Gogh",
-                        "Pablo Picasso",
-                        "Leonardo da Vinci",
-                        "Claude Monet",
-                    ],
-                    answer: 2,
-                },
-                {
-                    question: "What is the capital of Japan?",
-                    responses: ["Seoul", "Beijing", "Tokyo", "Bangkok"],
-                    answer: 2,
-                },
-            ]);
+            void fetchQuestions(prompt);
         },
-        [setQuestions, setTopic]
+        [fetchQuestions, prompt]
     );
 
     return (
@@ -80,6 +76,16 @@ export const Home = (): JSX.Element => {
                 <br />
                 Starts Here
             </Title>
+            <DifficultySelect
+                value={difficulty}
+                onChange={handleDifficultyChange}
+            >
+                {Object.values(QuizDifficulty).map((difficulty) => (
+                    <option key={difficulty} value={difficulty}>
+                        {difficulty}
+                    </option>
+                ))}
+            </DifficultySelect>
             <Description>
                 Pick a topic and let AI generate 10 questions for you.
             </Description>

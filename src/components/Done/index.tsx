@@ -1,6 +1,7 @@
 import { useCallback, useContext, type JSX } from "react";
 import AppContext from "src/contexts/AppContext";
 import { useResetTopic } from "src/utils/useResetTopic";
+import { useFetchQuestions } from "src/utils/useFetchQuestions";
 import { Main, Modal } from "../library";
 import {
     ChangeButton,
@@ -13,11 +14,14 @@ import {
 export const Done = (): JSX.Element => {
     const resetTopic = useResetTopic();
 
+    const fetchQuestions = useFetchQuestions();
+
     const { topic, mistakes, questions, setDone } = useContext(AppContext);
 
-    const handleRestartTopic = useCallback(() => {
+    const handleRestartTopic = useCallback(async () => {
+        await fetchQuestions(topic);
         setDone(false);
-    }, [setDone]);
+    }, [fetchQuestions, setDone, topic]);
 
     return (
         <Main>

@@ -20,6 +20,7 @@ export const Prompt = styled.input`
     padding: 16px;
     max-width: 480px;
     width: 100%;
+    background: white;
     &::placeholder {
         color: #727f9fff;
     }
@@ -69,4 +70,16 @@ export const SubmitButton = styled.button`
     &:active {
         background: #165ecd;
     }
+`;
+
+export const DifficultySelect = styled.select`
+    font: inherit;
+    border: 1px solid rgb(223, 226, 232);
+    border-radius: 12px;
+    padding: 8px 16px;
+    margin: 0;
+    margin-bottom: 24px;
+    color: #4d6679;
+    border-radius: 12px;
+    background: white;
 `;

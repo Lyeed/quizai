@@ -7,9 +7,13 @@ import {
     useState,
     type JSX,
 } from "react";
-import type { QuestionFormat } from "src/@types/app";
+import { QuizDifficulty, type QuestionFormat } from "src/@types/app";
 
 interface IAppContext {
+    difficulty: QuizDifficulty;
+    setDifficulty: Dispatch<SetStateAction<QuizDifficulty>>;
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
     topic: string;
     setTopic: Dispatch<SetStateAction<string>>;
     mistakes: number;
@@ -23,16 +27,22 @@ interface IAppContext {
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppProvider = ({ children }: PropsWithChildren): JSX.Element => {
+    const [difficulty, setDifficulty] = useState(QuizDifficulty.HARD);
+
     const [topic, setTopic] = useState("");
 
     const [mistakes, setMistakes] = useState(0);
 
     const [done, setDone] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const [questions, setQuestions] = useState<QuestionFormat[]>([]);
 
     const context = useMemo(
         () => ({
+            difficulty,
+            setDifficulty,
             questions,
             setQuestions,
             done,
@@ -41,8 +51,10 @@ export const AppProvider = ({ children }: PropsWithChildren): JSX.Element => {
             setTopic,
             mistakes,
             setMistakes,
+            loading,
+            setLoading,
         }),
-        [questions, done, topic, mistakes]
+        [questions, done, topic, mistakes, loading, difficulty]
     );
 
     return (
