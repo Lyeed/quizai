@@ -106,7 +106,7 @@ Error generating stack: `+o.message+`
     }
 `,Yp=we.img`
     cursor: pointer;
-`,Dc=()=>{const{setLoading:s,setQuestions:d,setTopic:u,difficulty:h}=ae.useContext(An);return ae.useCallback(async w=>{s(!0);try{const k=await fetch("/quiz",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:w,difficulty:h})});if(!k.ok||k.status!==200)throw new Error("Invalid response");const C=await k.json();u(C.topic),d(C.questions),s(!1)}catch(k){window.alert("An error occurred"),console.error(k),s(!1)}},[u,d,s,h])},mu=we.form`
+`,Dc=()=>{const{setLoading:s,setQuestions:d,setTopic:u,difficulty:h}=ae.useContext(An);return ae.useCallback(async w=>{s(!0);try{const k=await fetch("https://quizai-api.vercel.app/quiz",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:w,difficulty:h})});if(!k.ok||k.status!==200)throw new Error("Invalid response");const C=await k.json();u(C.topic),d(C.questions),s(!1)}catch(k){window.alert("An error occurred"),console.error(k),s(!1)}},[u,d,s,h])},mu=we.form`
     display: flex;
     flex-direction: column;
     align-items: center;
