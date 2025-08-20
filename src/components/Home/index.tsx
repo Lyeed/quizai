@@ -94,6 +94,7 @@ export const Home = (): JSX.Element => {
                 value={prompt}
                 placeholder="Enter a topic (e.g Space, Music, History)"
                 onChange={handlePromptChange}
+                maxLength={32}
             />
             <Subjects>
                 {randomSubjects.map((subject) => (

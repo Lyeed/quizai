@@ -1,7 +1,7 @@
 import { useContext, type JSX } from "react";
-import logoFullPath from "src/assets/logoFull.png";
-import illustration1Path from "src/assets/illustration1.png";
-import illustration2Path from "src/assets/illustration2.png";
+import logoFullPath from "src/assets/logoFull.webp";
+import illustration1Path from "src/assets/illustration1.webp";
+import illustration2Path from "src/assets/illustration2.webp";
 import AppContext from "src/contexts/AppContext";
 import { useResetTopic } from "src/utils/useResetTopic";
 import {

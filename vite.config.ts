@@ -6,7 +6,6 @@ import favicons from "@peterek/vite-plugin-favicons";
 // https://vite.dev/config/
 export default defineConfig((env) => ({
     base: env.mode === "production" ? "/quizai/" : "/",
-    assetsInclude: ["**/*.png"],
     publicDir: "./public",
     plugins: [
         tsconfigPaths(),
