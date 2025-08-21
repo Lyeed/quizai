@@ -8,6 +8,7 @@ import {
     AuthorLink,
     Footer,
     Header,
+    HomeButton,
     IllustrationLeft,
     IllustrationRight,
     Logo,
@@ -25,12 +26,18 @@ export const App = (): JSX.Element => {
     return (
         <>
             <Header>
-                <Logo
-                    width={128}
-                    height={128}
-                    src={logoFullPath}
+                <HomeButton
+                    aria-label="Home"
+                    type="button"
                     onClick={resetTopic}
-                />
+                >
+                    <Logo
+                        width={128}
+                        height={128}
+                        src={logoFullPath}
+                        alt="QuizAI"
+                    />
+                </HomeButton>
             </Header>
             {loading ? (
                 <Loader />
@@ -48,6 +55,7 @@ export const App = (): JSX.Element => {
                             src={illustration1Path}
                             width={128}
                             height={128}
+                            alt=""
                         />
                         <AuthorLink
                             target="_blank"
@@ -65,6 +73,7 @@ export const App = (): JSX.Element => {
                             src={illustration2Path}
                             width={128}
                             height={128}
+                            alt=""
                         />
                     </Footer>
                 </>

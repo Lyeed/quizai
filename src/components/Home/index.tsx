@@ -78,6 +78,8 @@ export const Home = (): JSX.Element => {
             </Title>
             <DifficultySelect
                 value={difficulty}
+                name="difficulty"
+                aria-label="Difficulty"
                 onChange={handleDifficultyChange}
             >
                 {Object.values(QuizDifficulty).map((difficulty) => (
@@ -93,8 +95,9 @@ export const Home = (): JSX.Element => {
                 required
                 value={prompt}
                 placeholder="Enter a topic (e.g Space, Music, History)"
-                onChange={handlePromptChange}
                 maxLength={32}
+                name="topic"
+                onChange={handlePromptChange}
             />
             <Subjects>
                 {randomSubjects.map((subject) => (

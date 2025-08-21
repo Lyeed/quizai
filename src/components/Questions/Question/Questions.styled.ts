@@ -10,6 +10,7 @@ export const Answers = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-width: 360px;
 `;
 
 export const Answer = styled.button<{

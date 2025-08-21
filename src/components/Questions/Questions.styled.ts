@@ -28,3 +28,8 @@ export const SubmitButton = styled.button`
         cursor: not-allowed;
     }
 `;
+
+export const QuizTopic = styled.h2`
+    margin: 0;
+    font-weight: 500;
+`;

@@ -40,7 +40,7 @@ export const useFetchQuestions = (): ((topic: string) => Promise<void>) => {
                 setQuestions(json.questions);
                 setLoading(false);
             } catch (error) {
-                window.alert("An error occurred");
+                window.alert("Ops, An error occurred");
                 console.error(error);
                 setLoading(false);
             }

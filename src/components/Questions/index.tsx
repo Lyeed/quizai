@@ -11,13 +11,23 @@ import {
 } from "react";
 import AppContext from "src/contexts/AppContext";
 import { Modal } from "../library";
-import { SubmitButton, Count, QuestionsWindow } from "./Questions.styled";
+import {
+    SubmitButton,
+    Count,
+    QuestionsWindow,
+    QuizTopic,
+} from "./Questions.styled";
 import { Question } from "./Question";
 
 export const Questions = (): JSX.Element => {
     const timeoutRef = useRef<number>();
 
-    const { questions: data, setMistakes, setDone } = useContext(AppContext);
+    const {
+        questions: data,
+        setMistakes,
+        setDone,
+        topic,
+    } = useContext(AppContext);
 
     const [step, setStep] = useState(0);
 
@@ -38,7 +48,7 @@ export const Questions = (): JSX.Element => {
             event.preventDefault();
             if (currentAnswer === currentQuestion.answer) {
                 setInvalid(false);
-                setCurrentAnswer(-1);
+                setCurrentAnswer(null);
                 if (isLast) {
                     setDone(true);
                     return;
@@ -72,13 +82,16 @@ export const Questions = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
+        setCurrentAnswer(null);
         setMistakes(0);
+        setInvalid(false);
     }, []);
 
     return (
         <QuestionsWindow onSubmit={handleSubmit}>
             <Modal>
                 <Count>{`${step + 1} / ${data.length}`}</Count>
+                <QuizTopic>{topic}</QuizTopic>
                 <Question
                     answer={currentAnswer}
                     isInvalid={invalid}

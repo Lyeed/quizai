@@ -4,6 +4,10 @@ export const Title = styled.h1`
     font-size: 48px;
     color: #00245f;
     margin: 0 0 24px 0;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 36px;
+    }
 `;
 
 export const Description = styled.h2`

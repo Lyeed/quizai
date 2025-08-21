@@ -29,7 +29,7 @@ export const Done = (): JSX.Element => {
                 <Title>
                     <big>🎉</big>
                     <br />
-                    Great job - you're done!
+                    Great job - you&apos;re done!
                 </Title>
                 <SubTitle>{`You completed ${questions.length} questions on ${topic}.`}</SubTitle>
                 <Mistakes

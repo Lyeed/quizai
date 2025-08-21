@@ -5,7 +5,6 @@ export interface QuestionFormat {
 }
 
 export enum QuizDifficulty {
-    VERY_EASY = "Very easy",
     EASY = "Easy",
     MEDIUM = "Medium",
     HARD = "Hard",

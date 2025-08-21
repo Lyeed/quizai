@@ -27,7 +27,7 @@ interface IAppContext {
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppProvider = ({ children }: PropsWithChildren): JSX.Element => {
-    const [difficulty, setDifficulty] = useState(QuizDifficulty.HARD);
+    const [difficulty, setDifficulty] = useState(QuizDifficulty.MEDIUM);
 
     const [topic, setTopic] = useState("");
 

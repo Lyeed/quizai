@@ -15,7 +15,7 @@ Currently supported models:
 Requirements:
 
 - Node.js
-https://nodejs.org/en/download/current
+  https://nodejs.org/en/download/current
 
 ## Development server
 
