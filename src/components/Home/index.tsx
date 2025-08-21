@@ -95,7 +95,7 @@ export const Home = (): JSX.Element => {
                 required
                 value={prompt}
                 placeholder="Enter a topic (e.g Space, Music, History)"
-                maxLength={32}
+                maxLength={48}
                 name="topic"
                 onChange={handlePromptChange}
             />

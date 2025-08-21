@@ -33,6 +33,8 @@ export const Questions = (): JSX.Element => {
 
     const [invalid, setInvalid] = useState(false);
 
+    const [valid, setValid] = useState(false);
+
     const [currentAnswer, setCurrentAnswer] = useState<number | null>(null);
 
     const currentQuestion = useMemo(() => data[step], [step, data]);
@@ -46,25 +48,39 @@ export const Questions = (): JSX.Element => {
     const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
         (event) => {
             event.preventDefault();
-            if (currentAnswer === currentQuestion.answer) {
+            if (currentAnswer === currentQuestion.answer.index) {
+                setValid(true);
                 setInvalid(false);
-                setCurrentAnswer(null);
-                if (isLast) {
-                    setDone(true);
-                    return;
-                }
 
-                setStep((previous) => previous + 1);
                 return;
             }
 
+            setValid(false);
             setInvalid(true);
             setMistakes((previous) => previous + 1);
             timeoutRef.current = window.setTimeout(() => {
                 setInvalid(false);
             }, 2000);
         },
-        [currentAnswer, currentQuestion, setMistakes, isLast, setDone]
+        [currentAnswer, currentQuestion, setMistakes]
+    );
+
+    const handleNext = useCallback<FormEventHandler<HTMLFormElement>>(
+        (event) => {
+            event.preventDefault();
+
+            setCurrentAnswer(null);
+            setInvalid(false);
+            setValid(false);
+
+            if (isLast) {
+                setDone(true);
+                return;
+            }
+
+            setStep((previous) => previous + 1);
+        },
+        [isLast, setStep, setDone]
     );
 
     const handleSelectAnswer = useCallback<
@@ -82,19 +98,21 @@ export const Questions = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        setCurrentAnswer(null);
         setMistakes(0);
+        setCurrentAnswer(null);
         setInvalid(false);
+        setValid(false);
     }, []);
 
     return (
-        <QuestionsWindow onSubmit={handleSubmit}>
+        <QuestionsWindow onSubmit={valid ? handleNext : handleSubmit}>
             <Modal>
                 <Count>{`${step + 1} / ${data.length}`}</Count>
                 <QuizTopic>{topic}</QuizTopic>
                 <Question
                     answer={currentAnswer}
                     isInvalid={invalid}
+                    isValid={valid}
                     data={currentQuestion}
                     onSelectAnswer={handleSelectAnswer}
                 />

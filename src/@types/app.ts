@@ -1,7 +1,10 @@
 export interface QuestionFormat {
     question: string;
     responses: string[];
-    answer: number;
+    answer: {
+        index: number;
+        description: string;
+    };
 }
 
 export enum QuizDifficulty {

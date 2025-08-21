@@ -7,20 +7,26 @@ export const Question = ({
     onSelectAnswer,
     answer,
     isInvalid,
+    isValid,
 }: {
     readonly data: QuestionFormat;
     readonly onSelectAnswer: MouseEventHandler<HTMLButtonElement>;
     readonly answer: number | null;
     readonly isInvalid: boolean;
+    readonly isValid: boolean;
 }): JSX.Element => (
     <>
         <Title>{data.question}</Title>
         <Answers>
-            {data.responses.map((r, index) => (
+            {(isValid
+                ? [data.responses[data.answer.index]]
+                : data.responses
+            ).map((r, index) => (
                 <Answer
                     key={r}
                     $toggled={index === answer}
                     $invalid={index === answer && isInvalid}
+                    $valid={isValid}
                     data-index={index}
                     type="button"
                     onClick={onSelectAnswer}
@@ -29,5 +35,6 @@ export const Question = ({
                 </Answer>
             ))}
         </Answers>
+        {isValid ? <span>{data.answer.description}</span> : null}
     </>
 );

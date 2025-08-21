@@ -16,14 +16,21 @@ export const Answers = styled.div`
 export const Answer = styled.button<{
     $toggled?: boolean;
     $invalid?: boolean;
+    $valid?: boolean;
 }>`
     font: inherit;
     margin: 0;
     padding: 8px 16px;
     border-radius: 12px;
     border: none;
-    background: ${({ $toggled, $invalid }) =>
-        $invalid ? "#f35555ff" : $toggled ? "#abd5fc" : "#e8f4ff"};
+    background: ${({ $valid, $toggled, $invalid }) =>
+        $valid
+            ? "#43b939ff"
+            : $invalid
+              ? "#f35555ff"
+              : $toggled
+                ? "#abd5fc"
+                : "#e8f4ff"};
     text-align: left;
     cursor: pointer;
     transition: background 200ms;
